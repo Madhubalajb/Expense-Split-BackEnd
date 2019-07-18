@@ -4,7 +4,7 @@
   "description": "Backend for Expense Split App",
   "main": "server.js",
   "scripts": {
-    "devStart": "nodemon server.js",
+    "devStart": "nodemon server.js"
   },
   "author": "Madhubala Jayakumaran",
   "license": "ISC",
