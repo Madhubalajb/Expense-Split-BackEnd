@@ -18,13 +18,13 @@ router.get('/:id', getExpense, (request, response) => {
 })
 
 //Creating one
-router.post('/', async(request, resonse) => {
+router.post('/', async(request, response) => {
     const expense = new Expense({
-        expense_name = request.body.expense_name,
-        date = request.body.date,
-        amount = request.body.amount,
-        count = request.body.count,
-        by_whom = request.body.by_whom
+        expense_name: request.body.expense_name,
+        date: request.body.date,
+        amount: request.body.amount,
+        count: request.body.count,
+        by_whom: request.body.by_whom
     })
     try {
         const newExpense = await expense.save()

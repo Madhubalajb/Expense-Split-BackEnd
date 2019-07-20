@@ -8,7 +8,7 @@ const expensesRouter = require('./routes/expenses')
 
 const app = express()
 app.use(express.json())
-app.use('/expenses', expensesRouter)
+app.use('/api/expenses', expensesRouter)
 
 mongoose
 .connect(process.env.MONGODB_URI, {useNewUrlParser: true})
