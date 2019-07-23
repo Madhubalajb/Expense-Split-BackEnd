@@ -3,18 +3,15 @@ if(env != 'production') {
     require('dotenv').config()
 }
 const express = require('express')
-const mongoose = require('mongoose')
+const cors = require('cors')
 const expensesRouter = require('./routes/expenses')
-
 const app = express()
+
+app.use(express.static('build'))
 app.use(express.json())
+app.use(cors())
 app.use('/api/expenses', expensesRouter)
 
-mongoose
-    .connect(process.env.MONGODB_URI, {useNewUrlParser: true})
-    .then(() => console.log('Connected to MONGODB'))
-    .catch((error) => console.error(error))
-
-app.listen(3000, () => {
+app.listen(3001, () => {
     console.log(`Server running on port 3000`);
 })
