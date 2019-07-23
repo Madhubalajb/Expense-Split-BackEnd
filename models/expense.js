@@ -41,4 +41,4 @@ expenseSchema.set('toJSON', {
     }
 })
 
-module.exports = mongoose.model('expense', expenseSchema)
+module.exports = mongoose.model('Expense', expenseSchema)
