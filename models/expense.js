@@ -14,10 +14,12 @@ const expenseSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    count: {
-        type: Number,
-        required: true
-    },
+    members: [
+        {
+        name: String,
+        isChecked: Boolean
+        },
+    ],
     by_whom: {
         type: String,
         required: true

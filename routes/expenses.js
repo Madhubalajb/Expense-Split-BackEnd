@@ -23,7 +23,12 @@ router.post('/', async(request, response) => {
         expense_name: request.body.expense_name,
         date: request.body.date,
         amount: request.body.amount,
-        count: request.body.count,
+        members: [
+            {
+                name: request.body.members[0].name,
+                isChecked: request.body.members[0].isChecked
+            },
+        ],
         by_whom: request.body.by_whom
     })
     try {

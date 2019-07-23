@@ -11,11 +11,10 @@ app.use(express.json())
 app.use('/api/expenses', expensesRouter)
 
 mongoose
-.connect(process.env.MONGODB_URI, {useNewUrlParser: true})
-.then(() => console.log('Connected to MONGODB'))
-.catch((error) => console.error(error))
+    .connect(process.env.MONGODB_URI, {useNewUrlParser: true})
+    .then(() => console.log('Connected to MONGODB'))
+    .catch((error) => console.error(error))
 
-const PORT = process.env.PORT
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+app.listen(3000, () => {
+    console.log(`Server running on port 3000`);
 })
