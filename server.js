@@ -2,7 +2,7 @@ const env = String(process.env.NODE_ENV)
 if(env != 'production') {
     require('dotenv').config()
 }
-console.log(process.env.MONGODB_URI)
+console.log(String(process.env.MONGODB_URI))
 const express = require('express')
 const cors = require('cors')
 const expensesRouter = require('./routes/expenses')
