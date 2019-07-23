@@ -4,7 +4,10 @@
   "description": "Backend for Expense Split App",
   "main": "server.js",
   "scripts": {
-    "devStart": "nodemon server.js"
+    "devStart": "nodemon server.js",
+    "build:ui": "rm -rf build && cd ../expense-split && npm run build --prod && cp -r build ../expense-split-backend",
+    "deploy": "git push heroku master",
+    "deploy:full": "npm run build:ui && git add . && git commit -m ui_build && git push &7 npm run deploy"
   },
   "author": "Madhubala Jayakumaran",
   "license": "ISC",
