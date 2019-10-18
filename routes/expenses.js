@@ -23,13 +23,8 @@ router.post('/', async(request, response) => {
         expense_name: request.body.expense_name,
         date: request.body.date,
         amount: request.body.amount,
-        members: [
-            {
-                name: request.body.members[0].name,
-                isChecked: request.body.members[0].isChecked
-            },
-        ],
-        by_whom: request.body.by_whom
+        by_whom: request.body.by_whom,
+        members: request.body.members
     })
     try {
         const newExpense = await expense.save()
