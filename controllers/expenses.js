@@ -2,7 +2,7 @@ const expensesRouter = require('express').Router()
 const Expense = require('../models/expense')
 
 //Getting all
-router.get('/', async(request, response) => {
+expensesRouter.get('/', async(request, response) => {
     try {
         const expenses = await Expense.find()
         response.json(expenses)
@@ -12,12 +12,12 @@ router.get('/', async(request, response) => {
 })
 
 //Getting one
-router.get('/:id', getExpense, (request, response) => {
+expensesRouter.get('/:id', getExpense, (request, response) => {
     response.json(response.expense)
 })
 
 //Creating one
-router.post('/', async(request, response) => {
+expensesRouter.post('/', async(request, response) => {
     const expense = new Expense({
         expense_name: request.body.expense_name,
         date: request.body.date,
@@ -34,7 +34,7 @@ router.post('/', async(request, response) => {
 })
 
 //updating one
-router.patch('/:id', getExpense, async(request, response) => {
+expensesRouter.patch('/:id', getExpense, async(request, response) => {
     if(request.body.expense_name != null)
         response.expense.expense_name = request.body.expense_name
     try {
@@ -46,7 +46,7 @@ router.patch('/:id', getExpense, async(request, response) => {
 })
 
 //Deleting one
-router.delete('/:id', getExpense, async(request, response) => {
+expensesRouter.delete('/:id', getExpense, async(request, response) => {
     try{
         await response.expense.remove()
         response.json({message: 'Deleted Expense'})
