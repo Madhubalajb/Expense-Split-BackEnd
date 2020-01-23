@@ -1,5 +1,4 @@
-const express = require('express')
-const router = express.Router()
+const expensesRouter = require('express').router()
 const Expense = require('../models/expense')
 
 //Getting all
@@ -70,4 +69,4 @@ async function getExpense(request, response, next) {
     next()
 }
 
-module.exports = router
+module.exports = expensesRouter
