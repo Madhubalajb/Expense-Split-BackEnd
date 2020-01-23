@@ -1,4 +1,4 @@
-const expensesRouter = require('express').router()
+const expensesRouter = require('express').Router()
 const Expense = require('../models/expense')
 
 //Getting all
