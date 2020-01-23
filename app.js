@@ -3,7 +3,7 @@ const expensesRouter = require('./controllers/expenses')
 const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
-const bodyParser = require('bodyParser')
+const bodyParser = require('body-parser')
 const app = express()
 
 console.log(`Connection to ${config.MONGODB_URI}`)
@@ -18,7 +18,7 @@ mongoose.connect(config.MONGODB_URI, {})
 
 app.use(cors())
 app.use(express.static('build'))
-app.use(bodyParser.JSON())
+app.use(bodyParser.json())
 app.use('/api/expenses', expensesRouter)
 
 module.exports = app
