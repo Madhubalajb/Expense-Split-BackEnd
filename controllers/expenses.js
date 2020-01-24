@@ -4,8 +4,9 @@ const Expense = require('../models/expense')
 //Getting all
 expensesRouter.get('/', async(request, response) => {
     try {
-        const expenses = await Expense.find()
-        response.json(expenses)
+        const expenses = await Expense.find({}).populate('user', {username: 1, name: 1})
+        //populating user - 'user' is a field in Expense model.
+        response.json(expenses.map(expense => expense.toJSON()))
     } catch(error) {
         response.status(500).json({message: error.message})
     }
