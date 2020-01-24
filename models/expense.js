@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const expenseSchema = new mongoose.Schema({
+const expenseSchema = mongoose.Schema({
     expense_name: {
         type: String,
         required: true
@@ -23,6 +23,10 @@ const expenseSchema = new mongoose.Schema({
     by_whom: {
         type: String,
         required: true
+    },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     }
 })
 
@@ -34,4 +38,6 @@ expenseSchema.set('toJSON', {
     }
 })
 
-module.exports = mongoose.model('Expense', expenseSchema)
+const Expense = mongoose.model('Expense', expenseSchema)
+
+module.exports = Expense
