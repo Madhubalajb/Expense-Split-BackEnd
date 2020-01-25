@@ -1,5 +1,6 @@
 const expensesRouter = require('express').Router()
 const Expense = require('../models/expense')
+const User = require('../models/User')
 
 //Getting all
 expensesRouter.get('/', async(request, response) => {

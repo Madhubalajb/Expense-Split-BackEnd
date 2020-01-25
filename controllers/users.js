@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs')
 const usersRouter = require('express').Router()
 const User = require('../models/User')
+const Expense = require('../models/Expense')
 
 usersRouter.get('/', async (request, response, next) => {
     const users = await User.find({}).populate('expenses', {expense_name: 1, amount: 1, members: 1, by_whom: 1})
