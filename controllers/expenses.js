@@ -1,6 +1,7 @@
 const expensesRouter = require('express').Router()
 const Expense = require('../models/expense')
 const User = require('../models/User')
+const jwt = require('jsonwebtoken')
 
 //Getting all
 expensesRouter.get('/', async(request, response) => {
@@ -20,16 +21,30 @@ expensesRouter.get('/:id', getExpense, (request, response) => {
 
 //Creating one
 expensesRouter.post('/', async(request, response) => {
-    const expense = new Expense({
-        expense_name: request.body.expense_name,
-        date: request.body.date,
-        amount: request.body.amount,
-        by_whom: request.body.by_whom,
-        members: request.body.members
+    const body = request.body
+
+    const decodedToken = jwt.verify(request.token, process.env.SECRET)
+
+    if(!request.token || !decodedToken.id) {
+        return response.status(401).json({error: 'Token missing or invalid'})
+    }
+
+    const user = await User.findById(decodedToken.id)
+
+    const newExpense = new Expense({
+        expense_name: body.expense_name,
+        date: body.date,
+        amount: body.amount,
+        by_whom: body.by_whom,
+        members: body.members,
+        user: user._id
     })
+
     try {
-        const newExpense = await expense.save()
-        response.status(201).json(newExpense)
+        const savedExpense = await newExpense.save()
+        user.expenses = user.expenses.concat(savedExpense._id)
+        await user.save()
+        response.status(201).json(savedExpense)
     } catch(error) {
         response.status(400).json({message: error.message})
     }
@@ -37,8 +52,10 @@ expensesRouter.post('/', async(request, response) => {
 
 //updating one
 expensesRouter.patch('/:id', getExpense, async(request, response) => {
-    if(request.body.expense_name != null)
-        response.expense.expense_name = request.body.expense_name
+    const body = request.body
+
+    if(body.expense_name != null)
+        response.expense.expense_name = body.expense_name
     try {
         const updatedExpense = await response.expense.save()
         response.json(updatedExpense)
