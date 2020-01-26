@@ -20,7 +20,7 @@ expensesRouter.get('/:id', getExpense, (request, response) => {
 })
 
 //Creating one
-expensesRouter.post('/', async(request, response) => {
+expensesRouter.post('/', async(request, response, next) => {
     const body = request.body
     console.log(request.token)
     const decodedToken = jwt.verify(request.token, process.env.SECRET)
@@ -45,13 +45,13 @@ expensesRouter.post('/', async(request, response) => {
         user.expenses = user.expenses.concat(savedExpense._id)
         await user.save()
         response.status(201).json(savedExpense)
-    } catch(error) {
-        response.status(400).json({message: error.message})
+    } catch(exception) {
+        next(exception)
     }
 })
 
 //updating one
-expensesRouter.patch('/:id', getExpense, async(request, response) => {
+expensesRouter.patch('/:id', getExpense, async(request, response, next) => {
     const body = request.body
 
     if(body.expense_name != null)
@@ -59,18 +59,18 @@ expensesRouter.patch('/:id', getExpense, async(request, response) => {
     try {
         const updatedExpense = await response.expense.save()
         response.json(updatedExpense)
-    } catch(error) {
-        response.status(400).json({message: error.message})
+    } catch(exception) {
+        next(exception)
     }
 })
 
 //Deleting one
-expensesRouter.delete('/:id', getExpense, async(request, response) => {
+expensesRouter.delete('/:id', getExpense, async(request, response, next) => {
     try{
         await response.expense.remove()
         response.json({message: 'Deleted Expense'})
-    } catch(error) {
-        response.status(500).json({message: error.message})
+    } catch(exception) {
+        next(exception)
     }
 })
 
