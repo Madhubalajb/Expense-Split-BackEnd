@@ -2,7 +2,7 @@
   "name": "expense-split-backend",
   "version": "1.0.0",
   "description": "Backend for Expense Split App",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
     "devStart": "nodemon index.js",
     "build:ui": "rmdir /s /q build && cd ../expense-split && npm run build --prod && xcopy build \"C:\\Users\\JB MADHUBALA\\Projects\\expense-split-backend\\build\" /e /i",
