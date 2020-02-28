@@ -7,6 +7,4 @@ const tokenExtractor = (request, response, next) => {
     }
 }
 
-module.exports = {
-    tokenExtractor
-}
+module.exports = { tokenExtractor }
