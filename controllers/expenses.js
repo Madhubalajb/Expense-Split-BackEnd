@@ -23,7 +23,7 @@ expensesRouter.get('/:id', getExpense, (request, response) => {
 //Creating one
 expensesRouter.post('/', async(request, response, next) => {
     const body = request.body
-    console.log(request.token)
+    
     const decodedToken = jwt.verify(request.token, process.env.SECRET)
 
     if(!request.token || !decodedToken.id) {
