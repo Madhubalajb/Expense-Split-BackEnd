@@ -9,7 +9,8 @@ expensesRouter.get('/', async(request, response) => {
         const expenses = await Expense.find({}).populate('user', {username: 1, name: 1})
         //populating user - 'user' is a field in Expense model.
         response.json(expenses.map(expense => expense.toJSON()))
-    } catch(error) {
+    } 
+    catch(error) {
         response.status(500).json({message: error.message})
     }
 })
@@ -22,7 +23,7 @@ expensesRouter.get('/:id', getExpense, (request, response) => {
 //Creating one
 expensesRouter.post('/', async(request, response, next) => {
     const body = request.body
-    
+    console.log(request.token)
     const decodedToken = jwt.verify(request.token, process.env.SECRET)
 
     if(!request.token || !decodedToken.id) {
@@ -45,7 +46,8 @@ expensesRouter.post('/', async(request, response, next) => {
         user.expenses = user.expenses.concat(savedExpense._id)
         await user.save()
         response.status(201).json(savedExpense)
-    } catch(exception) {
+    } 
+    catch(exception) {
         next(exception)
     }
 })
@@ -59,7 +61,8 @@ expensesRouter.patch('/:id', getExpense, async(request, response, next) => {
     try {
         const updatedExpense = await response.expense.save()
         response.json(updatedExpense)
-    } catch(exception) {
+    } 
+    catch(exception) {
         next(exception)
     }
 })
@@ -69,22 +72,28 @@ expensesRouter.delete('/:id', getExpense, async(request, response, next) => {
     try{
         await response.expense.remove()
         response.json({message: 'Deleted Expense'})
-    } catch(exception) {
+    } 
+    catch(exception) {
         next(exception)
     }
 })
 
 async function getExpense(request, response, next) {
+    const decodedToken = jwt.verify(request.token, process.env.SECRET) 
     let expense
     try {
+        const user = await User.findById(decodedToken.id)   
         expense = await Expense.findById(request.params.id)
-        if(expense == null) {
-            return response.status(404).json({message: 'Cannot find Expense'})
+        
+        if(expense.user.toString() === user.id.toString()) {
+            response.expense = expense
         }
-    } catch(error) {
-        return response.status(500).json({message: error.message})
-    }
-    response.expense = expense
+        else
+            return response.status(404).json({message: 'Cannot find Expense'})
+    } 
+    catch(error) {
+        next(exception)
+    } 
     next()
 }
  
