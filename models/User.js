@@ -8,7 +8,10 @@ const userSchema = mongoose.Schema({
         required: true,
         minLength: 5
     },
-    name: String,
+    name: {
+        type: String,
+        required: true
+    },
     passwordHash: {
         type: String,
         required: true,
