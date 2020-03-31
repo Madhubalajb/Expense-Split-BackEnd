@@ -35,9 +35,8 @@ expensesRouter.post('/', async(request, response, next) => {
     const newExpense = new Expense({
         expense_name: body.expense_name,
         date: body.date,
-        amount: body.amount,
-        by_whom: body.by_whom,
         members: body.members,
+        expenses: body.expenses,
         user: user._id
     })
 

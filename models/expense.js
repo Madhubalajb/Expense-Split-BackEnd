@@ -10,20 +10,24 @@ const expenseSchema = mongoose.Schema({
         required: true,
         default: Date.now
     },
-    amount: {
-        type: Number,
-        required: true
-    },
     members: [
         {
         name: String,
         isChecked: Boolean
         },
     ],
-    by_whom: {
-        type: String,
-        required: true
-    },
+    expenses: [
+        {
+            amount: Number,
+            by_whom: String,
+            to_whom: [
+                {
+                    name: String,
+                    isChecked: Boolean
+                }
+            ]
+        },
+    ],
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
