@@ -40,7 +40,7 @@ expensesRouter.post('/', async(request, response, next) => {
         splitted: body.splitted,
         user: user._id
     })
-
+    console.log(body)
     try {
         const savedExpense = await newExpense.save()
         user.expenses = user.expenses.concat(savedExpense._id)
