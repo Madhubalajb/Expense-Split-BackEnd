@@ -37,6 +37,7 @@ expensesRouter.post('/', async(request, response, next) => {
         date: body.date,
         members: body.members,
         expenses: body.expenses,
+        splitted: body.splitted,
         user: user._id
     })
 

@@ -24,7 +24,18 @@ const expenseSchema = mongoose.Schema({
                 {
                     name: String,
                     isChecked: Boolean
-                }
+                },
+            ]
+        },
+    ],
+    splitted: [
+        {
+            member: String,
+            splittedExp: [
+                {
+                    to: String,
+                    amount: Number
+                },
             ]
         },
     ],
